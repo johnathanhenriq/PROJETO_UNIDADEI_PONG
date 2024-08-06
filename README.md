@@ -1,5 +1,5 @@
 
-## PONG
+# PONG
 Pong é um dos jogos de arcade mais antigos e icônicos, criado originalmente por Atari em 1972. Trata-se de um jogo de tênis de mesa simples onde dois jogadores controlam barras verticais que se movem para cima e para baixo, foi adicioandos também os movimento (para cima e para baixo) . O objetivo é usar essas barras para rebater uma bola que se desloca pela tela, tentando fazer com que a bola passe pela barra do adversário para marcar pontos.
 
 
@@ -9,17 +9,17 @@ Pong é um dos jogos de arcade mais antigos e icônicos, criado originalmente po
 - Atualização da posição da bola e das barras em cada frame do jogo.
 - Lógica para aumentar a pontuação e resetar a bola quando um ponto é marcado.
 
-## Principais Componentes
+# Principais Componentes
 
-# Canvas
+### Canvas
 Utilizado para desenhar os elementos gráficos do jogo.
 Configurado com dimensões apropriadas para o jogo.
 
-# Barras (Raquetes):
+### Barras (Raquetes):
 Controladas pelo jogador através de eventos de teclado.
 Desenhadas como retângulos no canvas.
 
-# Bola:
+### Bola:
 Um círculo que se move pelo campo e rebate nas barras e nas bordas.
 Lógica de Jogo:
 

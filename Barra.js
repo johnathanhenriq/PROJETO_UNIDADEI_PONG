@@ -4,7 +4,7 @@ class Barra {
         this.y = y;
         this.width = width;
         this.height = height;
-        this.speed = 10;
+        this.speed = 15;
     }
 
     draw(context) {
@@ -13,7 +13,7 @@ class Barra {
     }
 
     moveUp() {
-        this.y = Math.max(this.y - this.speed, 0);
+        this.y = Math.max(this.y - this.speed, 10);
     }
 
     moveDown(canvas) {

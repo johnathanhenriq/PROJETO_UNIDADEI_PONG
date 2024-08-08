@@ -37,7 +37,7 @@ class Mundo {
     gameLoop() {
         this.update();
         this.draw();
-        requestAnimationFrame(() => this.gameLoop());
+        requestAnimationFrame(() => this.gameLoop()); 
     }
 
     update() {

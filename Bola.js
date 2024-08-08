@@ -10,7 +10,6 @@ class Bola {
     draw(context) {
         context.beginPath(); //desenha a trajetoria da bola
         context.arc(this.x, this.y, this.radius, 0, Math.PI * 2, true);
-        //context.closePath();
         context.fill();
     }
 

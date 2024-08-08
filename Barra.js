@@ -8,7 +8,6 @@ class Barra {
     }
 
     draw(context) {
-        context.fillStyle = 'white';
         context.fillRect(this.x, this.y, this.width, this.height);
     }
 

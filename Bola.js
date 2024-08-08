@@ -8,10 +8,9 @@ class Bola {
     }
 
     draw(context) {
-        context.fillStyle = 'white';
-        context.beginPath();
-        context.arc(this.x, this.y, this.radius, 0, Math.PI * 2, false);
-        context.closePath();
+        context.beginPath(); //desenha a trajetoria da bola
+        context.arc(this.x, this.y, this.radius, 0, Math.PI * 2, true);
+        //context.closePath();
         context.fill();
     }
 
@@ -39,8 +38,8 @@ class Bola {
     }
 
     reset(canvas) {
-        this.x = canvas.width / 2;
+        this.x = canvas.width / 2; // inicializar na metade do mundo
         this.y = canvas.height / 2;
-        this.speedX = -this.speedX;
+        this.speedX = -this.speedX; //inicializa sempre na posição contraria (cima/baixo)
     }
 }

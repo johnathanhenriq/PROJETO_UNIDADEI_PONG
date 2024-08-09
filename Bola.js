@@ -9,22 +9,24 @@ class Bola {
 
     draw(context) {
         context.beginPath(); //desenha a trajetoria da bola
-        context.arc(this.x, this.y, this.radius, 0, Math.PI * 2, true);
+        context.arc(this.x, this.y, this.radius, 0, Math.PI * 2, false);
         context.fill();
-    }
+    }   
 
     update(canvas, barraEsquerda, barraDireita, colisao, pontuacao) {
         this.x += this.speedX;
         this.y += this.speedY;
 
+        //colisao cima, baixo
         if (this.y + this.radius > canvas.height || this.y - this.radius < 0) {
             this.speedY = -this.speedY;
         }
-
+        //colisao bola-barra
         if (colisao.detectar(this, barraEsquerda) || colisao.detectar(this, barraDireita)) {
             this.speedX = -this.speedX;
         }
 
+        //colisao esq, dir
         if (this.x + this.radius > canvas.width) {
             pontuacao.incrementarEsquerda();
             this.reset(canvas);

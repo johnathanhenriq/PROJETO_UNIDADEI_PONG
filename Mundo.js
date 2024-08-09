@@ -3,18 +3,17 @@ class Mundo {
         this.canvas = canvas; // desenha os objetos na tela
         this.context = canvas.getContext('2d');
         this.bola = new Bola(canvas.width / 2, canvas.height / 2, 10);
-        this.barraEsquerda = new Barra(10, (canvas.height - 100) / 2, 10, 100);
+        this.barraEsquerda = new Barra(8, (canvas.height - 100) / 2, 10, 100);
         this.barraDireita = new Barra(canvas.width - 20, (canvas.height - 100) / 2, 10, 100);
         this.pontuacao = new Pontuacao();
         this.colisao = new Colisao();
 
         this.bindControls(); 
-        this.gameLoop();
+        this.gameLoop(); //
     }
 
 
 //método de controle
-
     bindControls() {
         document.addEventListener('keydown', (event) => {
             switch(event.key) {
@@ -42,7 +41,7 @@ class Mundo {
 
     update() {
         this.bola.update(this.canvas, this.barraEsquerda, this.barraDireita, this.colisao, this.pontuacao);
-    } //jogo trava (verificar oque é)
+    } 
 
     draw() {
         this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);

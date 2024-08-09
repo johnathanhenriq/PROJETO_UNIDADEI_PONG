@@ -14,8 +14,9 @@ class Barra {
     moveUp() {
         this.y = Math.max(this.y - this.speed, 10);
     }
-
+//colisao borda, movimentação ==
     moveDown(canvas) {
         this.y = Math.min(this.y + this.speed, canvas.height - this.height);
     }
 }
+

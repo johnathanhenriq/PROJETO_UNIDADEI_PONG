@@ -8,25 +8,25 @@ class Bola {
     }
 
     draw(context) {
-        context.beginPath(); //desenha a trajetoria da bola
+        context.beginPath();
         context.arc(this.x, this.y, this.radius, 0, Math.PI * 2, false);
+        context.fillStyle = 'white'; // Defina a cor da bola
         context.fill();
-    }   
+        context.closePath();
+    }
 
     update(canvas, barraEsquerda, barraDireita, colisao, pontuacao) {
         this.x += this.speedX;
         this.y += this.speedY;
 
-        //colisao cima, baixo
         if (this.y + this.radius > canvas.height || this.y - this.radius < 0) {
             this.speedY = -this.speedY;
         }
-        //colisao bola-barra
+
         if (colisao.detectar(this, barraEsquerda) || colisao.detectar(this, barraDireita)) {
             this.speedX = -this.speedX;
         }
 
-        //colisao esq, dir
         if (this.x + this.radius > canvas.width) {
             pontuacao.incrementarEsquerda();
             this.reset(canvas);
@@ -39,8 +39,8 @@ class Bola {
     }
 
     reset(canvas) {
-        this.x = canvas.width / 2; // inicializar na metade do mundo
+        this.x = canvas.width / 2;
         this.y = canvas.height / 2;
-        this.speedX = -this.speedX; //inicializa sempre na posição contraria (cima/baixo)
+        this.speedX = -this.speedX;
     }
 }

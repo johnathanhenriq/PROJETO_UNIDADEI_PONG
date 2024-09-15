@@ -1,5 +1,5 @@
 class Recompensa {
-    constructor(x, y, tipo) {
+    constructor(x, y, tipo, canvas) {
         this.x = x;
         this.y = y;
         this.tipo = tipo;
@@ -8,6 +8,7 @@ class Recompensa {
         this.velocidade = 2;
         this.duracao = 10000; // 10 segundos de duração
         this.startTime = Date.now();
+        this.canvas = canvas; // Armazena o canvas
     }
 
     draw(context) {

@@ -9,6 +9,9 @@ class Mundo {
         this.colisao = new Colisao();
         this.drops = [];
 
+        this.temporizador = new Temporizador(5000, () => this.gerarDropAleatorio()); // Gera um drop a cada 5 segundos
+        this.temporizador.iniciar();
+
         this.bindControls();
         this.gameLoop();
     }
@@ -34,8 +37,8 @@ class Mundo {
 
     atualizarDrops() {
         this.drops = this.drops.filter(drop => {
-            if (drop.update()) {
-                return false; // Remove drops que expiraram
+            if (drop.update(this.bola)) {
+                return false; // Remove drops que expiraram ou colidiram
             }
             return true;
         });
@@ -56,14 +59,20 @@ class Mundo {
         this.drops.push(novoDrop);
     }
 
+    gerarDropAleatorio() {
+        const tipo = Math.random() > 0.5 ? 'amarelo' : 'vermelho';
+        const novoDrop = new Drop(Math.random() * this.canvas.width, Math.random() * this.canvas.height, tipo, Math.random() * this.canvas.width, Math.random() * this.canvas.height);
+        this.drops.push(novoDrop);
+    }
+
     checkDropCollision() {
         this.drops.forEach(drop => {
             if (drop.colidiuCom(this.bola)) {
                 let recompensa;
                 if (drop.tipo === 'amarelo') {
-                    recompensa = new RecompensaAmarelo(drop.x, drop.y);
+                    recompensa = new RecompensaAmarelo(drop.x, drop.y, this.canvas);
                 } else {
-                    recompensa = new RecompensaVermelha(drop.x, drop.y);
+                    recompensa = new RecompensaVermelho(drop.x, drop.y, this.canvas);
                 }
                 recompensa.aplicar(this.barraEsquerda, this.barraDireita, this.pontuacao);
                 this.drops = this.drops.filter(d => d !== drop); // Remove o drop após aplicar a recompensa

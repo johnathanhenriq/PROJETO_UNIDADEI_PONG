@@ -20,7 +20,7 @@ class Drop {
         context.closePath();
     }
 
-    update() {
+    update(bola) {
         const dx = this.destinoX - this.x;
         const dy = this.destinoY - this.y;
         const distancia = Math.sqrt(dx * dx + dy * dy);
@@ -33,6 +33,11 @@ class Drop {
             this.y += moveY;
         }
 
+        if (this.colidiuCom(bola)) {
+            console.log('Colisão detectada:', this, bola);
+            return true; // Indica que o drop deve ser removido após a colisão
+        }
+
         if (Date.now() - this.startTime > this.duracao) {
             return true; // Drop expirado
         }
@@ -40,9 +45,15 @@ class Drop {
     }
 
     colidiuCom(bola) {
-        return this.x < bola.x + bola.radius &&
-               this.x + this.width > bola.x - bola.radius &&
-               this.y < bola.y + bola.radius &&
-               this.y + this.height > bola.y - bola.radius;
+        const colidiu = this.x < bola.x + bola.radius &&
+                        this.x + this.width > bola.x - bola.radius &&
+                        this.y < bola.y + bola.radius &&
+                        this.y + this.height > bola.y - bola.radius;
+        
+        if (colidiu) {
+            console.log('Colisão detectada:', this, bola);
+        }
+        
+        return colidiu;
     }
 }

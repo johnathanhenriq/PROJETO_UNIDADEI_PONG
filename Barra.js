@@ -28,6 +28,6 @@ class Barra {
 
     diminuirAltura(fator) {
         this.height *= fator;
-        this.height = Math.max(this.height, 10); // Garante uma altura mínima
+        this.height = Math.max(this.height, 10); // altura mínima 
     }
 }

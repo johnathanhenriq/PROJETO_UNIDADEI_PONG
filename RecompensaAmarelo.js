@@ -1,13 +1,36 @@
-class RecompensaAmarelo extends Recompensa {
+class RecompensaAmarelo {
     constructor(x, y, canvas) {
-        super(x, y, 'amarelo', canvas);
+        this.x = x;
+        this.y = y;
+        this.canvas = canvas;
+        this.radius = 10; // Raio da recompensa
+        this.speedX = 0.5; // Velocidade horizontal
     }
 
-    aplicar(barraEsquerda, barraDireita) {
-        if (this.x < this.canvas.width / 2) { // Se a recompensa está perto da barra direita
-            barraDireita.diminuirAltura(0.7); // Diminui a altura da barra direita em 30%
-        } else { // Caso contrário, diminui a altura da barra esquerda
-            barraEsquerda.diminuirAltura(0.7); // Diminui a altura da barra esquerda em 30%
+    draw(context) {
+        context.beginPath();
+        context.arc(this.x, this.y, this.radius, 0, Math.PI * 2, false);
+        context.fillStyle = 'yellow'; // Cor da recompensa
+        context.fill();
+        context.closePath();
+    }
+
+    update() {
+        this.x += this.speedX;
+
+        // Remove a recompensa se sair da tela
+        if (this.x - this.radius > this.canvas.width) {
+            return true; // Indica que a recompensa deve ser removida
+        }
+        return false; // Indica que a recompensa ainda está ativa
+    }
+
+    aplicar(barraEsquerda, barraDireita, pontuacao, lado) {
+        // Aumenta a altura da barra do lado contrário ao que colidiu
+        if (lado === 'esquerda') {
+            barraDireita.height *= 1.2;
+        } else {
+            barraEsquerda.height *= 1.2;
         }
     }
 }

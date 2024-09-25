@@ -1,74 +1,41 @@
 class Recompensa {
-    constructor(x, y, tipo, destinoX, destinoY, canvas) {
+    constructor(x, y, canvas, cor) {
         this.x = x;
         this.y = y;
-        this.tipo = tipo;
-        this.width = 20;
-        this.height = 20;
-        this.velocidade = 2;
-        this.destinoX = destinoX;
-        this.destinoY = destinoY;
-        this.duracao = 10000; // 10 segundos de duração
-        this.startTime = Date.now();
-        this.canvas = canvas; // Armazena o canvas
+        this.canvas = canvas;
+        this.cor = cor;
+        this.radius = 10; // Raio da recompensa
+        this.speedX = 0.5; // Velocidade horizontal
         this.direcao = Math.random() > 0.5 ? 1 : -1; // Determina a direção inicial aleatoriamente
 
-        // Ajusta a posição inicial e o destino com base na direção
+        // Ajusta a posição inicial com base na direção
         if (this.direcao === -1) {
-            this.x = canvas.width - this.width; // Inicia do lado direito
-            this.destinoX = 0; // Destino é o lado esquerdo
+            this.x = canvas.width - this.radius; // Inicia do lado direito
         } else {
-            this.x = 0; // Inicia do lado esquerdo
-            this.destinoX = canvas.width - this.width; // Destino é o lado direito
+            this.x = this.radius; // Inicia do lado esquerdo
         }
     }
 
-    draw(context) {
+    draw(context, tipo) {
         context.beginPath();
-        context.rect(this.x, this.y, this.width, this.height);
-        context.fillStyle = this.tipo === 'amarelo' ? 'yellow' : 'red';
+        context.arc(this.x, this.y, this.radius, 0, Math.PI * 2, false);
+        context.fillStyle = this.cor; // Cor da recompensa
         context.fill();
         context.closePath();
     }
 
-    update(bola) {
-        const dx = this.destinoX - this.x;
-        const dy = this.destinoY - this.y;
-        const distancia = Math.sqrt(dx * dx + dy * dy);
-        
-        if (distancia > 0) {
-            const moveX = (dx / distancia) * this.velocidade;
-            const moveY = (dy / distancia) * this.velocidade;
+    update() {
+        this.x += this.speedX * this.direcao;
 
-            this.x += moveX;
-            this.y += moveY;
+        // Remove a recompensa se sair da tela
+        if ((this.direcao === 1 && this.x - this.radius > this.canvas.width) ||
+            (this.direcao === -1 && this.x + this.radius < 0)) {
+            return true; // Indica que a recompensa deve ser removida
         }
-
-        if (this.colidiuCom(bola)) {
-            console.log('Colisão detectada:', this, bola);
-            return true; // Indica que a recompensa deve ser removida após a colisão
-        }
-
-        if (Date.now() - this.startTime > this.duracao) {
-            return true; // Recompensa expirada
-        }
-        return false;
+        return false; // Indica que a recompensa ainda está ativa
     }
 
-    colidiuCom(bola) {
-        const colidiu = this.x < bola.x + bola.radius &&
-                        this.x + this.width > bola.x - bola.radius &&
-                        this.y < bola.y + bola.radius &&
-                        this.y + this.height > bola.y - bola.radius;
-        
-        if (colidiu) {
-            console.log('Colisão detectada:', this.bola);
-        }
-        
-        return colidiu;
-    }
-
-    aplicar(barraEsquerda, barraDireita, pontuacao) {
-        // Esta função será sobrescrita nas subclasses
+    aplicar(barraEsquerda, barraDireita, pontuacao, lado) {
+        // Método a ser sobrescrito pelas subclasses
     }
 }

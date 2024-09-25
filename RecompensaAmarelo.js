@@ -4,11 +4,11 @@ class RecompensaAmarelo extends Recompensa{
     }
 
     aplicar(barraEsquerda, barraDireita, pontuacao, lado) {
-        // Aumenta a altura da barra do lado contrário ao que colidiu
+        // Diminui a altura da barra do lado contrário ao que colidiu
         if (lado === 'esquerda') {
-            barraDireita.height *= 1.2;
+            barraDireita.height *= 0.7;
         } else {
-            barraEsquerda.height *= 1.2;
+            barraEsquerda.height *= 0.7;
         }
     }
 }
